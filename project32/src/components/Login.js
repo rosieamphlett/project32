@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Errors } from './Errors';
 import './Login.css';
+import { InputAdornment } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import { RemoveRedEye } from '@material-ui/icons';
 
 class Login extends Component {
     state = {
@@ -9,6 +12,7 @@ class Login extends Component {
       emailValid: false,
       passwordValid: false,
       formValid: false,
+      passwordIsMasked: true,
       errors: {email: '', password: ''}
     }
 
@@ -23,9 +27,22 @@ render () {
           <input type="email" name="email" placeholder=" Email" value={this.state.email} onChange={this.handleChange}/>
         </div> <br/>
         <div className={`form-group ${this.errorClass(this.state.errors.password)}`}>
-          <label className="password"/>
-          <input type="password" name="password" placeholder=" Password" value={this.state.password} onChange={this.handleChange}  />
+        
+        
+        {/* <label className="password"/>
+          <input type="password" name="password" placeholder=" Password" value={this.state.password} onChange={this.handleChange}  /> */}
+        {/* <input type="password" id="pwd" placeholder = " Password" value= {this.state.password} onChange = {this.handleChange{}}> */}
+
+        <TextField
+        type={this.state.passwordIsMasked ? 'password' : 'text'} name="password" placeholder=" Password" value ={this.state.password} onChange={this.handleChange}
+        InputProps={{endAdornment: (
+            <InputAdornment position="end">
+              <RemoveRedEye onClick={this.togglePasswordMask}/>
+            </InputAdornment>
+        )}}/>
         </div><br/>
+
+
         <div className= "remember-email">
           <input type ="checkbox"></input><span>Remember email</span> 
         </div><br/>
@@ -43,6 +60,12 @@ render () {
     },
     () => { this.validateField(name, value) });
   }
+
+  togglePasswordMask = () => {
+    this.setState(prevState => ({
+      passwordIsMasked: !prevState.passwordIsMasked,
+    }));
+  };
 
   validateField(fieldName, value) {
     let errors = this.state.errors;
