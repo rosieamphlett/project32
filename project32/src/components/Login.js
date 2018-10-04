@@ -12,6 +12,29 @@ class Login extends Component {
       errors: {email: '', password: ''}
     }
 
+render () {
+    return (
+      <div className="form">
+      <form>
+        <h2 className="login">Login</h2>
+        <Errors errors={this.state.errors} />
+        <div className={`form-group ${this.errorClass(this.state.errors.email)}`}>
+          <label className="email"/>
+          <input type="email" name="email" placeholder=" Email" value={this.state.email} onChange={this.handleChange}/>
+        </div> <br/>
+        <div className={`form-group ${this.errorClass(this.state.errors.password)}`}>
+          <label className="password"/>
+          <input type="password" name="password" placeholder=" Password" value={this.state.password} onChange={this.handleChange}  />
+        </div><br/>
+        <div className= "remember-email">
+          <input type ="checkbox"></input><span>Remember email</span> 
+        </div><br/>
+        <button type="submit" className="submit" disabled={!this.state.formValid}>Login</button>
+      </form>
+    </div>
+    )
+  }
+
   handleChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -33,7 +56,7 @@ class Login extends Component {
         break;
       case 'password':
         passwordValid = value.length >=8 && value.match(/[\d]/g) ;
-        errors.password = passwordValid ? '':'Password must be more than 8 characters and include at least 1 number'
+        errors.password = passwordValid ? '':'Password must be more than 8 characters, including 1 number'
         break;
         default:
         break;
@@ -52,24 +75,6 @@ class Login extends Component {
 
   errorClass(error) {
     return(error.length === 0 ? '' : 'hasError');
-  }
-
-  render () {
-    return (
-      <form className="form">
-        <h2>Login</h2>
-        <Errors errors={this.state.errors} />
-        <div className={`form-group ${this.errorClass(this.state.errors.email)}`}>
-          <label htmlFor="email"/>
-          <input type="email" name="email" placeholder="email"value={this.state.email} onChange={this.handleChange}/>
-        </div>
-        <div className={`form-group ${this.errorClass(this.state.errors.password)}`}>
-          <label htmlFor="password"/>
-          <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}  />
-        </div>
-        <button type="submit" className="submit" disabled={!this.state.formValid}>Login</button>
-      </form>
-    )
   }
 }
 export default Login;
