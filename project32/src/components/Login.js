@@ -23,12 +23,10 @@ render () {
         <Errors errors={this.state.errors} />
 
         <div>
-          <label className="email"/>
           <input type="email" name="email" placeholder=" Email" value={this.state.email} onChange={this.handleChange}/>
         </div><br/>
 
         <div className='form-group'>
-          <label/>
           <input type="password" id="pwd" ref="pwd" name="password" placeholder=" Password" value={this.state.password} onChange={this.handleChange}/>
           <span onClick={this.togglePassword} className={this.state.passwordIsHidden ? "glyphicon glyphicon-eye-open" : "glyphicon glyphicon-eye-close"}></span>
         </div><br/>
