@@ -11,7 +11,7 @@ Project 32, a fictional national service-based charity, have asked us to build a
 
 ## How to run
 
-To open this login page, clone this repo to your local machine, direct into the project32 file and run the following commands:
+To open this login page, clone this repo to your local machine, ensure you are in project32 and run the following commands:
 
 * npm install
 
