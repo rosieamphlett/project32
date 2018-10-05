@@ -1,5 +1,4 @@
 import React from 'react';
-import './Login.css';
 
 export const Errors = ({errors}) => 
   <div className='errors'>

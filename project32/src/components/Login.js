@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import '../styling/Login.css'
 import { Errors } from './Errors';
-import './Login.css';
-import { InputAdornment } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import { RemoveRedEye } from '@material-ui/icons';
 
 class Login extends Component {
     state = {
@@ -12,44 +10,52 @@ class Login extends Component {
       emailValid: false,
       passwordValid: false,
       formValid: false,
-      passwordIsMasked: true,
+      passwordIsHidden: true,
       errors: {email: '', password: ''}
     }
 
 render () {
     return (
+
       <div className="form">
       <form>
         <h2 className="login">Login</h2>
         <Errors errors={this.state.errors} />
-        <div className={`form-group ${this.errorClass(this.state.errors.email)}`}>
+
+        <div>
           <label className="email"/>
           <input type="email" name="email" placeholder=" Email" value={this.state.email} onChange={this.handleChange}/>
-        </div> <br/>
-        <div className={`form-group ${this.errorClass(this.state.errors.password)}`}>
-        
-        
-        {/* <label className="password"/>
-          <input type="password" name="password" placeholder=" Password" value={this.state.password} onChange={this.handleChange}  /> */}
-        {/* <input type="password" id="pwd" placeholder = " Password" value= {this.state.password} onChange = {this.handleChange{}}> */}
-
-        <TextField
-        type={this.state.passwordIsMasked ? 'password' : 'text'} name="password" placeholder=" Password" value ={this.state.password} onChange={this.handleChange}
-        InputProps={{endAdornment: (
-            <InputAdornment position="end">
-              <RemoveRedEye onClick={this.togglePasswordMask}/>
-            </InputAdornment>
-        )}}/>
         </div><br/>
 
+        <div className='form-group'>
+          <label/>
+          <input type="password" id="pwd" ref="pwd" name="password" placeholder=" Password" value={this.state.password} onChange={this.handleChange}/>
+          <span onClick={this.togglePassword} className={this.state.passwordIsHidden ? "glyphicon glyphicon-eye-open" : "glyphicon glyphicon-eye-close"}></span>
+        </div><br/>
 
         <div className= "remember-email">
           <input type ="checkbox"></input><span>Remember email</span> 
         </div><br/>
+
         <button type="submit" className="submit" disabled={!this.state.formValid}>Login</button>
       </form>
     </div>
     )
+  }
+
+  togglePassword = () => {
+    let pwd = ReactDOM.findDOMNode(this.refs.pwd);
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        this.setState ({
+          passwordIsHidden: false
+        })
+    } else {
+        pwd.type = "password";
+        this.setState ({
+          passwordIsHidden: true
+        })
+    }
   }
 
   handleChange = (event) => {
@@ -60,12 +66,6 @@ render () {
     },
     () => { this.validateField(name, value) });
   }
-
-  togglePasswordMask = () => {
-    this.setState(prevState => ({
-      passwordIsMasked: !prevState.passwordIsMasked,
-    }));
-  };
 
   validateField(fieldName, value) {
     let errors = this.state.errors;
@@ -78,8 +78,8 @@ render () {
         errors.email = emailValid ? '' : 'Please enter a valid email address';
         break;
       case 'password':
-        passwordValid = value.length >=8 && value.match(/[\d]/g) ;
-        errors.password = passwordValid ? '':'Password must be more than 8 characters, including 1 number'
+        passwordValid = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/) ;
+        errors.password = passwordValid ? '':'Password must contain: Min 8 characters, at least 1 number, 1 uppercase and 1 lowercase character';
         break;
         default:
         break;
@@ -95,9 +95,6 @@ render () {
     this.setState({
         formValid: this.state.emailValid && this.state.passwordValid});
   }
-
-  errorClass(error) {
-    return(error.length === 0 ? '' : 'hasError');
-  }
 }
+
 export default Login;

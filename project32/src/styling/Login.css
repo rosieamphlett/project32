@@ -5,12 +5,33 @@
 
 .form {
 	border-radius: 5px;
-    background-color: white;
+	background-color: white;
 	padding: 30px;
 	display: inline-block;
-	width: 350px;
-	height: 325px;
+	width: 35%;
 	margin-bottom: 50px;
+}
+  
+@media all and (max-width: 500px) { 
+	.form {
+		border-radius: 5px;
+		background-color: white;
+		padding: 30px;
+		display: inline-block;
+		width: 90%;
+		margin-bottom: 20px;
+	}
+}
+
+@media all and (max-width: 850px) { 
+	.form {
+		border-radius: 5px;
+		background-color: white;
+		padding: 30px;
+		display: inline-block;
+		width: 50%;
+		margin-bottom: 20px;
+	}
 }
 
 .login {
@@ -30,13 +51,22 @@ input[type=password], input[type=email], input[type=text] {
 	font-size: 12px;
 }
 
+.form-group {
+	position: relative
+}
+
+.form-group .glyphicon {
+	right: 10px;
+	position: absolute;
+	top:12px
+}
+
 .remember-email {
 	color:rgb(64, 65, 65);
 	text-align: left;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 500;
 	font-size: 13px;
-	
 }
 
 .submit {
