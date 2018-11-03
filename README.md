@@ -1,6 +1,6 @@
 ## Deployed Link
 
-https://youthful-bell-22d604.netlify.com/
+https://project-32.netlify.com/
 
 ## About
 
