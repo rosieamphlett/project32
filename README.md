@@ -1,6 +1,10 @@
+## Deployed Link
+
+https://youthful-bell-22d604.netlify.com/
+
 ## About
 
-Project 32, a fictional national service-based charity, have asked us to build a web app to help their service users. This login page was built using the following languages/frameworks:
+A simple login page with email and password validation for a fictional company, Project 32. This login page was built using the following languages/frameworks:
 
 * JavaScript
 * React.js
